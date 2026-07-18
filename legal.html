@@ -21,8 +21,7 @@
     <link rel="icon" type="image/png" href="https://pngup.com/iRsS/1000325969.png">
     
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939" crossorigin="anonymous"></script>
     
     <style>
         :root {
@@ -33,9 +32,8 @@
             --light: #f8fafc;
             --dark: #0f172a;
             --muted: #94a3b8;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-bg: rgba(15, 23, 42, 0.55);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -52,28 +50,34 @@
 
         html {
             scroll-behavior: smooth;
+            background: var(--dark);
         }
 
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: 
+                linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%),
+                url('https://pngup.com/LojZ/1000326224.jpg') center center / cover no-repeat fixed;
             color: var(--light);
             min-height: 100vh;
-            line-height: 1.8;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* Scroll Animation */
+        a, button { cursor: pointer; }
+
+        /* --- Smooth Scroll Animation (No White Flash) --- */
         .section {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
         }
-
         .section.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Navigation Bar */
+        /* --- NAVBAR --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -83,12 +87,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .navbar-brand {
             display: flex;
             align-items: center;
@@ -96,21 +99,14 @@
             text-decoration: none;
             transition: var(--transition);
         }
-
-        .navbar-brand:hover {
-            opacity: 0.85;
-        }
-
+        .navbar-brand:hover { transform: scale(1.03); }
         .logo {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            object-fit: cover;
-            user-select: none;
-            pointer-events: none;
             border: 2px solid var(--primary);
+            transition: var(--transition);
         }
-
         .brand-name {
             font-size: 1.25rem;
             font-weight: 700;
@@ -119,14 +115,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-
-        /* Desktop Navigation */
-        .desktop-nav {
-            display: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
+        .desktop-nav { display: none; gap: 2rem; align-items: center; }
         .nav-link {
             color: var(--light);
             text-decoration: none;
@@ -134,7 +123,6 @@
             transition: var(--transition);
             position: relative;
         }
-
         .nav-link::after {
             content: '';
             position: absolute;
@@ -145,85 +133,64 @@
             background: var(--primary);
             transition: var(--transition);
         }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link[style*="color: var(--accent)"]::after { width: 100%; }
 
-        .nav-link:hover {
-            color: var(--accent);
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        /* Hamburger Button */
+        /* --- HAMBURGER & MENU --- */
         .hamburger {
             display: flex;
             flex-direction: column;
             gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
             padding: 0.5rem;
             background: transparent;
             border: none;
+            z-index: 1002;
         }
-
         .hamburger span {
-            width: 25px;
+            width: 26px;
             height: 3px;
             background: var(--light);
             border-radius: 2px;
-            transition: var(--transition);
+            transition: 0.3s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            transform-origin: center;
         }
-
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(6px, 6px);
+            background: var(--accent);
         }
-
         .hamburger.active span:nth-child(2) {
             opacity: 0;
+            transform: translateX(10px);
         }
-
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(6px, -6px);
+            background: var(--accent);
         }
-
-        /* Mobile Menu */
         .menu-overlay {
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            inset: 0;
+            background: rgba(0,0,0,0.5);
             opacity: 0;
             visibility: hidden;
-            transition: var(--transition);
+            transition: 0.3s;
             z-index: 999;
         }
-
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
+        .menu-overlay.active { opacity: 1; visibility: visible; }
         .mobile-menu {
             position: fixed;
             top: 0;
             right: -300px;
             width: 300px;
             height: 100%;
-            background: var(--secondary);
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
             padding: 5rem 2rem 2rem;
-            transition: var(--transition);
+            transition: 0.3s ease;
             z-index: 1000;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            overflow-y: auto;
+            border-left: 1px solid rgba(255,255,255,0.1);
         }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        /* Close Button Inside Mobile Menu */
+        .mobile-menu.active { right: 0; }
         .menu-close-btn {
             position: absolute;
             top: 1.25rem;
@@ -233,47 +200,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 50%;
             color: var(--light);
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            cursor: pointer;
             transition: var(--transition);
         }
-
         .menu-close-btn:hover {
-            background: rgba(37, 99, 235, 0.2);
-            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.25);
             color: var(--accent);
             transform: rotate(90deg);
         }
-
         .mobile-nav-links {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            list-style: none;
+            gap: 1.25rem;
         }
-
         .mobile-nav-links a {
             color: var(--light);
             text-decoration: none;
             font-size: 1.1rem;
-            font-weight: 500;
-            transition: var(--transition);
             padding: 0.5rem;
             border-radius: 6px;
+            transition: var(--transition);
         }
-
         .mobile-nav-links a:hover {
             background: rgba(37, 99, 235, 0.2);
             color: var(--accent);
             padding-left: 1rem;
         }
 
-        /* Main Content */
+        /* --- MAIN CONTENT --- */
         main {
             padding-top: 6rem;
             max-width: 1000px;
@@ -282,12 +242,11 @@
             padding-right: 1.5rem;
         }
 
-        /* Legal Section */
+        /* --- LEGAL HEADER --- */
         .legal-header {
             text-align: center;
             padding: 2rem 0 3rem;
         }
-
         .legal-header h1 {
             font-size: 2rem;
             margin-bottom: 1rem;
@@ -295,113 +254,96 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
         }
 
+        /* --- LEGAL TEXT (NO BOX/NO BACKGROUND) --- */
         .legal-block {
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 12px;
+            padding: 0;
             margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(8px);
+            border: none;
+            background: transparent;
+            backdrop-filter: none;
         }
-
         .legal-block p {
-            color: var(--muted);
+            color: rgba(226, 232, 240, 0.9);
+            line-height: 1.8;
             margin-bottom: 1rem;
         }
+        .legal-block p:last-child { margin-bottom: 0; }
 
-        .legal-block p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Ad Container */
+        /* --- FIXED: Ads Container - HIDDEN/COMPACT IF NO ADS --- */
         .ad-container {
-            margin: 2.5rem auto;
+            margin: 2rem auto;
             max-width: 100%;
             text-align: center;
+            min-height: 0;
+            max-height: 0;
+            padding: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        /* ONLY show/expand when ad content loads */
+        .ad-container:has(ins:not(:empty)) {
+            min-height: 90px;
+            max-height: 250px;
+            padding: 1rem;
+            opacity: 1;
+            overflow: visible;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
         }
 
-        /* Footer */
+        /* --- FOOTER --- */
         footer {
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(15, 23, 42, 0.85);
             padding: 2.5rem 1.5rem;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
             margin-top: 4rem;
         }
-
-        .copyright {
-            color: var(--muted);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
+        .copyright { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .social-links { display: flex; justify-content: center; gap: 2rem; }
         .social-link {
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 45px;
-            height: 45px;
             border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             transition: var(--transition);
-            text-decoration: none;
         }
-
         .social-link:hover {
             transform: translateY(-3px);
             border-color: var(--primary);
             background: rgba(37, 99, 235, 0.2);
         }
+        .social-link svg { width: 22px; height: 22px; fill: var(--accent); transition: var(--transition); }
+        .social-link:hover svg { fill: var(--light); }
 
-        .social-link svg {
-            width: 22px;
-            height: 22px;
-            fill: var(--accent);
-            transition: var(--transition);
-        }
-
-        .social-link:hover svg {
-            fill: var(--light);
-        }
-
-        /* Desktop Responsive */
+        /* --- RESPONSIVE --- */
         @media (min-width: 768px) {
-            .desktop-nav {
-                display: flex;
-            }
-
-            .hamburger {
-                display: none;
-            }
-
-            .legal-header h1 {
-                font-size: 2.5rem;
-            }
-
-            .legal-block {
-                padding: 2.5rem;
-            }
+            .desktop-nav { display: flex; }
+            .hamburger { display: none; }
+            .legal-header h1 { font-size: 2.5rem; }
+        }
+        @media (max-width: 767px) {
+            body { background-attachment: scroll; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <!-- Navigation -->
+
+    <!-- NAVBAR -->
     <nav class="navbar">
         <a href="/" class="navbar-brand">
-            <img src="https://pngup.com/iRsS/1000325969.png" alt="JayBM Logo" class="logo" loading="eager">
+            <img src="https://pngup.com/iRsS/1000325969.png" alt="JayBM Logo" class="logo" loading="lazy">
             <span class="brand-name">JayBM</span>
         </a>
-
-        <!-- Desktop Navigation -->
         <div class="desktop-nav">
             <a href="/blog" class="nav-link">Blog</a>
             <a href="/licence" class="nav-link">Licence</a>
@@ -412,21 +354,14 @@
             <a href="https://edu.jaybm.me" class="nav-link">Education</a>
             <a href="/legal" class="nav-link" style="color: var(--accent);">Legal</a>
         </div>
-
-        <!-- Hamburger Button -->
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
         </button>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay"></div>
-
-    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close menu">×</button>
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close">×</button>
         <ul class="mobile-nav-links">
             <li><a href="/blog">Blog</a></li>
             <li><a href="/licence">Licence</a></li>
@@ -440,232 +375,145 @@
     </div>
 
     <main>
-        <!-- Header -->
+        <!-- HEADER -->
         <section class="section legal-header">
             <h1>Legal Notice, Terms of Use, Copyright, and Privacy Statement</h1>
         </section>
 
-        <!-- Section 1 -->
+        <!-- SECTION 1 -->
         <section class="section legal-block">
             <p>This website is a personal site owned and operated by me. These terms govern your access to and use of this website. By accessing or using this website, you agree to comply with all terms outlined here. This page constitutes the full legal agreement between you and the site owner. All content on this website is protected by copyright. I own all rights to every original text, image, design, code, and other material created and published here. Copyright in all content I make belongs exclusively to me as the sole author and owner. No part of this website may be reproduced, distributed, modified, or used without my prior written permission. Any unauthorized copying, scraping, or republication of content is strictly prohibited. All rights are reserved worldwide under applicable copyright laws.</p>
         </section>
 
-        <!-- Ad 1 -->
+        <!-- AD 1 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 2 -->
+        <!-- SECTION 2 -->
         <section class="section legal-block">
             <p>You may view the content for your personal, non-commercial informational purposes only. Any commercial use of the materials on this website is forbidden without explicit permission. Linking to this website is permitted provided it does not imply endorsement or misrepresent the site. Framing, embedding, or mirroring this website in any manner is not allowed. You agree not to use any automated tools, bots, or scripts to access or extract content from this site. Deep linking to specific pages or resources without context is discouraged and may be restricted.</p>
         </section>
 
-        <!-- Ad 2 -->
+        <!-- AD 2 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 3 -->
+        <!-- SECTION 3 -->
         <section class="section legal-block">
             <p>This website does not collect any personal data from visitors. No login system exists and no accounts are created. No forms collect names, emails, or other information. No cookies are used for tracking or analytics purposes. This site does not employ third-party tracking scripts or services. Your visit leaves no stored personal information on my servers. I do not share, sell, or disclose any visitor data because none is collected. Browsing this website is completely anonymous by design.</p>
         </section>
 
-        <!-- Ad 3 -->
+        <!-- AD 3 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 4 -->
+        <!-- SECTION 4 -->
         <section class="section legal-block">
             <p>The content on this website is provided for general information only. I make no warranties about the accuracy or completeness of any material presented here. All information is offered on an “as is” basis without guarantees of any kind. I am not liable for any errors, omissions, or outdated details that may appear. Reliance on any content from this site is at your own risk. This website may contain links to external resources, but I do not endorse or control those sites. Visiting external links is done entirely at your own discretion and risk.</p>
         </section>
 
-        <!-- Ad 4 -->
+        <!-- AD 4 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 5 -->
+        <!-- SECTION 5 -->
         <section class="section legal-block">
             <p>I disclaim all liability for any direct, indirect, incidental, or consequential damages arising from use of this website. No responsibility is assumed for any loss or damage resulting from accessing or using the materials here. Technical issues, downtime, or unavailability of the site may occur without notice or liability. This website is not intended to provide professional, legal, medical, or financial advice. Consult qualified experts for specific guidance in those fields.</p>
         </section>
 
-        <!-- Ad 5 -->
+        <!-- AD 5 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 6 -->
+        <!-- SECTION 6 -->
         <section class="section legal-block">
             <p>You agree not to use this website for any unlawful purpose or in violation of any applicable laws. Harassment, spam, or abusive behavior directed at the site owner through any means is prohibited. Attempting to hack, probe, or interfere with the site’s operation is strictly forbidden and will be reported. Uploading, posting, or transmitting any harmful code or malware to the site is not allowed. Reverse engineering, decompiling, or disassembling any part of the site is prohibited.</p>
         </section>
 
-        <!-- Ad 6 -->
+        <!-- AD 6 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 7 -->
+        <!-- SECTION 7 -->
         <section class="section legal-block">
             <p>All trademarks, logos, and brand names appearing on this website, if any, are the property of their respective owners. Nothing on this site grants you any license or right to use such intellectual property. I respect the intellectual property rights of others and expect the same in return. If you believe any content here infringes your rights, please contact me directly with details.</p>
         </section>
 
-        <!-- Ad 7 -->
+        <!-- AD 7 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 8 -->
+        <!-- SECTION 8 -->
         <section class="section legal-block">
             <p>These terms may be updated at any time without prior notice. Continued use of the website after changes constitutes acceptance of the revised terms. The most current version will always be posted on this legal page. If any provision of these terms is found invalid, the remaining provisions remain in full effect. This agreement is governed by the laws of the jurisdiction where the site owner resides, without regard to conflict of law principles. Any disputes arising from use of this site shall be resolved exclusively in the courts of that jurisdiction.</p>
         </section>
 
-        <!-- Ad 8 -->
+        <!-- AD 8 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 9 -->
+        <!-- SECTION 9 -->
         <section class="section legal-block">
             <p>You acknowledge that this is a personal hobby website with no commercial intent. No warranties, express or implied, are given regarding merchantability or fitness for any purpose. The site owner reserves the right to modify, remove, or restrict access to any content at any time. Nothing in these terms waives any legal rights or protections the owner may have. By using this website you confirm you have read, understood, and agree to every statement above.</p>
         </section>
 
-        <!-- Ad 9 -->
+        <!-- AD 9 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 10 -->
+        <!-- SECTION 10 -->
         <section class="section legal-block">
             <p>Materials and designs from this website may be used outside the web only with my explicit prior written permission. You cannot sell any content, images, designs, or materials from this website under any circumstances. Posting any content from this website on social media platforms is strictly prohibited without my prior permission. A dedicated License page on this website explains how to request permission for limited use of specific materials. Permission, when granted, will be limited in scope and subject to specific conditions. Unauthorized use outside these terms violates copyright law and may result in legal action. All requests for permission must be submitted through the process described on the License page.</p>
         </section>
 
-        <!-- Ad 10 -->
+        <!-- AD 10 -->
         <section class="section ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-9475436382730939"
-     data-ad-slot="7622912091"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9475436382730939" data-ad-slot="7622912091" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </section>
 
-        <!-- Section 11 -->
+        <!-- SECTION 11 -->
         <section class="section legal-block">
             <p>No implied licenses are granted by viewing or accessing the website. Fair use principles under copyright law still apply where appropriate, but commercial or widespread sharing is never authorized without permission. I retain full control over all usage rights for my original creations. Thank you for respecting my work and these legal terms.</p>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <div class="copyright">
-            © <span id="currentYear"></span> JayBM | All rights reserved.
-        </div>
+        <div class="copyright">© <span id="currentYear"></span> JayBM | All rights reserved.</div>
         <div class="social-links">
-            <a href="mailto:jaynerimendoza462@gmail.com" class="social-link" aria-label="Send Email">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
+            <a href="mailto:jaynerimendoza462@gmail.com" class="social-link" aria-label="Email">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </a>
-            <a href="https://www.facebook.com/share/1GvuTA5DCi/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
+            <a href="https://www.facebook.com/share/1GvuTA5DCi/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             </a>
         </div>
     </footer>
@@ -674,7 +522,7 @@
         // Current Year
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Mobile Menu Toggle
+        // Mobile Menu
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuOverlay = document.getElementById('menuOverlay');
@@ -690,31 +538,18 @@
         hamburger.addEventListener('click', toggleMenu);
         menuOverlay.addEventListener('click', toggleMenu);
         menuCloseBtn.addEventListener('click', toggleMenu);
-
-        // Close menu when clicking links
-        document.querySelectorAll('.mobile-nav-links a').forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => link.addEventListener('click', toggleMenu));
 
         // Scroll Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-        document.querySelectorAll('.section').forEach(section => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
 
-        // Disable copy/cut/select
+        // Copy Protection
         document.addEventListener('copy', e => e.preventDefault());
         document.addEventListener('cut', e => e.preventDefault());
         document.addEventListener('selectstart', e => e.preventDefault());
