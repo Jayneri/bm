@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>License | JayBM</title>
+    <meta name="description" content="Usage license and permissions for materials from JayBM website.">
+    <meta name="keywords" content="JayBM license, usage terms, permissions, attribution, copyright">
+    <meta name="author" content="Jayneri Mendoza">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jaybm.me/license">
+    <meta property="og:title" content="License | JayBM">
+    <meta property="og:description" content="Usage license and permissions for materials from JayBM website.">
+    <meta property="og:url" content="https://jaybm.me/license">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="License | JayBM">
+    <meta name="twitter:description" content="Usage license and permissions for materials from JayBM website.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://pngup.com/iRsS/1000325969.png">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939" crossorigin="anonymous"></script>
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #1e293b;
+            --accent: #38bdf8;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --muted: #94a3b8;
+            --card-bg: rgba(15, 23, 42, 0.55);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--dark);
+        }
+
+        body {
+            background: 
+                linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%),
+                url('https://pngup.com/LojZ/1000326224.jpg') center center / cover no-repeat fixed;
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a, button { cursor: pointer; }
+
+        /* --- Smooth Scroll Animation --- */
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .navbar-brand:hover { transform: scale(1.03); }
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+            /* Instant load as requested */
+            loading: eager;
+        }
+        .brand-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .desktop-nav { display: none; gap: 2rem; align-items: center; }
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        .nav-link:hover { color: var(--accent); }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link[style*="color: var(--accent)"]::after { width: 100%; }
+
+        /* --- HAMBURGER & MENU --- */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            z-index: 1002;
+        }
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: var(--light);
+            border-radius: 2px;
+            transition: 0.3s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: var(--accent);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(10px);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: var(--accent);
+        }
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 999;
+        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            padding: 5rem 2rem 2rem;
+            transition: 0.3s ease;
+            z-index: 1000;
+            border-left: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-menu.active { right: 0; }
+        .menu-close-btn {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--light);
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        .menu-close-btn:hover {
+            background: rgba(37, 99, 235, 0.25);
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        .mobile-nav-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .mobile-nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+        .mobile-nav-links a:hover {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--accent);
+            padding-left: 1rem;
+        }
+
+        /* --- MAIN CONTENT --- */
+        main {
+            padding-top: 6rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        /* --- LICENSE HEADER --- */
+        .license-header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+        }
+        .license-header h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
+        }
+
+        /* --- LICENSE TEXT (NO BOX/BACKGROUND) --- */
+        .license-block {
+            padding: 0;
+            margin-bottom: 2rem;
+            border: none;
+            background: transparent;
+            backdrop-filter: none;
+        }
+        .license-block p {
+            color: rgba(226, 232, 240, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .license-block p:last-child { margin-bottom: 0; }
+
+        /* --- FIXED: Ads Container - HIDDEN IF NO ADS --- */
+        .ad-container {
+            margin: 2rem auto;
+            max-width: 100%;
+            text-align: center;
+            min-height: 0;
+            max-height: 0;
+            padding: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .ad-container:has(ins:not(:empty)) {
+            min-height: 90px;
+            max-height: 250px;
+            padding: 1rem;
+            opacity: 1;
+            overflow: visible;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: rgba(15, 23, 42, 0.85);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            margin-top: 4rem;
+        }
+        .copyright { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .social-links { display: flex; justify-content: center; gap: 2rem; }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+        }
+        .social-link:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.2);
+        }
+        .social-link svg { width: 22px; height: 22px; fill: var(--accent); transition: var(--transition); }
+        .social-link:hover svg { fill: var(--light); }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .desktop-nav { display: flex; }
+            .hamburger { display: none; }
+            .license-header h1 { font-size: 2.5rem; }
+        }
+        @media (max-width: 767px) {
+            body { background-attachment: scroll; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">
+            <img src="https://pngup.com/iRsS/1000325969.png" alt="JayBM Logo" class="logo">
+            <span class="brand-name">JayBM</span>
+        </a>
+        <div class="desktop-nav">
+            <a href="/blog" class="nav-link">Blog</a>
+            <a href="/licence" class="nav-link" style="color: var(--accent);">Licence</a>
+            <a href="/donate" class="nav-link">Donate</a>
+            <a href="https://tools.jaybm.me" class="nav-link">Tools</a>
+            <a href="https://products.jaybm.me" class="nav-link">Products</a>
+            <a href="https://projects.jaybm.me" class="nav-link">Projects</a>
+            <a href="https://edu.jaybm.me" class="nav-link">Education</a>
+            <a href="/legal" class="nav-link">Legal</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close">×</button>
+        <ul class="mobile-nav-links">
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/licence" style="color: var(--accent);">Licence</a></li>
+            <li><a href="/donate">Donate</a></li>
+            <li><a href="https://tools.jaybm.me">Tools</a></li>
+            <li><a href="https://products.jaybm.me">Products</a></li>
+            <li><a href="https://projects.jaybm.me">Projects</a></li>
+            <li><a href="https://edu.jaybm.me">Education</a></li>
+            <li><a href="/legal">Legal</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- HEADER -->
+        <section class="section license-header">
+            <h1>License</h1>
+        </section>
+
+        <!-- LICENSE CONTENT -->
+        <section class="section license-block">
+            <p>This License page explains the terms governing the use of materials from this personal website. All content, designs, images, text, and original works published here are protected by copyright and owned exclusively by me. Anyone may freely use my works outside this website without requesting permission. Proper credit to me as the creator is required for all uses. You must always include clear attribution along with a link back to this website whenever my materials are used. This permissive policy allows broad sharing while ensuring appropriate recognition for my creative efforts. No formal approval is needed for standard use as long as credit is provided. Commercial use is permitted provided full credit and a backlink are included. Posting my content on social media is allowed with proper attribution.</p>
+            <p>You can use my designs and materials for personal projects, educational purposes, portfolios, or other external works without prior contact. Modification of original works still requires explicit permission. This page complements the main Legal page for complete usage guidelines. By using any materials from this site, you agree to give visible credit in all instances. Credit should mention my name and link to the original source page. I appreciate users who share my work responsibly and respectfully.</p>
+            <p>You do not need to submit any request for basic credited use. However, you may contact me at jaynerimendoza462@gmail.com for questions or special permissions. The “Request License” button remains available for any advanced requests or clarifications. All use must comply with the fundamental requirement of proper attribution. I retain full copyright ownership over all materials on this website. This open approach encourages wider distribution of my personal creations.</p>
+            <p>Updates to this License page may occur at any time without notice. The current version always defines the rules for using my works. Continued use of this website confirms your acceptance of these terms. Thank you for respecting my copyright by providing proper credit. Your cooperation helps others find the original content. This framework makes it simple for anyone to use my materials ethically. I welcome responsible sharing under these clear conditions. Proper attribution remains the only ongoing requirement. This policy balances open access with protection of my rights as the sole creator.</p>
+        </section>
+
+        <!-- AD -->
+        <section class="section ad-container">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9475436382730939" crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-9475436382730939"
+                 data-ad-slot="7622912091"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="copyright">© <span id="currentYear"></span> JayBM | All rights reserved.</div>
+        <div class="social-links">
+            <a href="mailto:jaynerimendoza462@gmail.com" class="social-link" aria-label="Email">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/share/1GvuTA5DCi/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuCloseBtn = document.getElementById('menuCloseBtn');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+        menuCloseBtn.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.mobile-nav-links a').forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+
+        // Copy Protection
+        document.addEventListener('copy', e => e.preventDefault());
+        document.addEventListener('cut', e => e.preventDefault());
+        document.addEventListener('selectstart', e => e.preventDefault());
+    </script>
+</body>
+</html>
